@@ -59,6 +59,15 @@ Cada artigo começa com `.I` seguido do seu identificador.
 | `.A` | Autores | Um artigo pode ter vários `.A`, um por autor |
 | `.W` | Resumo | O texto principal do artigo |
 | `.X` | Referências cruzadas | Ligações com outros artigos (três números por linha) |
+| `.B` | Ano de publicação | Só em 24 artigos |
+| `.K` | Palavras-chave | Só no artigo 321 |
+| `.C` | Códigos de classificação | Só no artigo 321 |
+
+**Cuidados na leitura:**
+
+- Os marcadores `.B`, `.K` e `.C` são raros e não aparecem na documentação original da coleção. A leitura precisa encerrar o resumo (`.W`) em **qualquer** marcador, e não só nos conhecidos; senão, as palavras-chave e os códigos do artigo 321 entram no resumo.
+- Em 15 linhas, o marcador vem seguido de espaço (`.T ` em vez de `.T`). Compare o marcador sem os espaços do fim da linha.
+- O arquivo tem 43 linhas em branco no meio dos textos.
 
 Exemplo (resumido):
 
