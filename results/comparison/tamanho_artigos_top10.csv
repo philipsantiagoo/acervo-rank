@@ -1,0 +1,4 @@
+"grupo","n","media","mediana"
+"Top-10 TF-IDF",760,121.2,114
+"Top-10 BM25",760,145.3,134
+"Relevantes (gabarito)",3114,134,124
