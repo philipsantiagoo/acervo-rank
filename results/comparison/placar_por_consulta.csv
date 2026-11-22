@@ -1,0 +1,4 @@
+"metrica","TF-IDF melhor","Empate","BM25 melhor"
+"P@10",21,29,26
+"AP",40,0,36
+"nDCG@10",36,4,36

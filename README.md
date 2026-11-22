@@ -5,7 +5,7 @@ Comparação estatística entre dois modelos de busca, TF-IDF e BM25, para decid
 > Projeto 2 de Estatística e Probabilidade para Computação (CIn-UFPE, 2026.2). </br>
 > **Equipe:** Arthur Dias, Eduardo Henrique, Felipe Augusto, Gabriel André e Philip Santiago.
 
-> **Status:** em construção. A documentação e os dados estão prontos; o notebook ainda não foi escrito.
+> **Status:** concluído. **Resultado:** o BM25 não foi significativamente melhor que o TF-IDF em nenhuma das três métricas, então a recomendação é **não trocar o sistema**. Veja o resumo em [results/conclusao.md](results/conclusao.md) e a análise completa no [notebook](notebooks/analise.ipynb).
 
 ## Ideia geral
 
