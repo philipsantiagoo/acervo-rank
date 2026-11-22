@@ -116,6 +116,8 @@ score(D, q) = Σ  idf(t) · f(t, D) · (k1 + 1) / ( f(t, D) + k1 · (1 − b + b
 - f(t, D): quantas vezes o termo *t* aparece em *D*;
 - |D|: tamanho de *D*; avgdl: tamanho médio dos artigos;
 - k1 = 1,2 (saturação); b = 0,75 (normalização pelo tamanho).
+- idf(t) = log10(N / df), **o mesmo do TF-IDF**, para que a diferença entre os modelos venha só da forma de pontuar. Testamos também o idf original de Robertson e Spärck Jones, log((N − df + 0,5) / (df + 0,5) + 1): as médias de P@10, MAP e nDCG@10 mudaram menos de 0,002.
+- Termos repetidos na consulta contam uma vez por ocorrência, nos dois modelos. Termos da consulta que não aparecem em nenhum artigo são ignorados.
 
 Os dois modelos são implementados em R, no próprio notebook.
 
