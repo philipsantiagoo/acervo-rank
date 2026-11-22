@@ -47,9 +47,10 @@ O projeto tem **dois testes de hipóteses**, porque a especificação exige um t
 
 - **Grupos:** artigos relevantes para pelo menos uma consulta × artigos que nunca são relevantes.
 - **Variável:** tamanho do artigo (número de palavras de título + resumo).
-- **H0:** o tamanho médio é igual nos dois grupos.
-- **H1:** o tamanho médio é diferente.
-- **Teste:** t de Welch, bilateral, α = 0,05. Se a EDA mostrar distribuições muito assimétricas, usar Mann-Whitney e justificar no notebook.
+- **H0:** a distribuição do tamanho é igual nos dois grupos.
+- **H1:** as distribuições do tamanho diferem entre os grupos.
+- **Teste:** Mann-Whitney, bilateral, α = 0,05. O plano inicial era o t de Welch, mas a EDA mostrou distribuições assimétricas (assimetria de 0,71 nos nunca relevantes e 1,53 nos relevantes), então usamos a alternativa não paramétrica prevista.
+- **Resultado:** p ≈ 0,97, H0 não rejeitada. O tamanho não está associado à relevância no CISI (medianas de 117 e 119 palavras). Isso reforça a motivação do BM25: se ser longo não torna um artigo mais relevante, um modelo que favorece artigos longos cria um viés, e a normalização pelo tamanho corrige esse viés.
 
 ### 4.2. Teste principal: o BM25 é melhor que o TF-IDF?
 
@@ -80,7 +81,7 @@ Para cada métrica (P@10, MAP e nDCG@10), seja *d* a diferença por consulta (BM
 | Parâmetros do BM25 | k1 = 1,2; b = 0,75 | Valores padrão da literatura; ajustar nas mesmas consultas da avaliação daria vantagem injusta ao BM25 | Fase 0 |
 | TF-IDF | Peso tf × idf, com idf = log10(N / df), e similaridade do cosseno entre consulta e documento | Modelo vetorial clássico. O exemplo do slide 8 do Projeto 1 soma os pesos sem normalizar; o cosseno corrige o efeito do tamanho do vetor | Fase 0 |
 | Tamanho do ranking | Todos os 1.460 artigos | O MAP precisa do ranking completo | Fase 0 |
-| Teste da EDA | Tamanho do artigo × relevância | Ver seção 4.1 | Fase 0 |
+| Teste da EDA | Tamanho do artigo × relevância, com Mann-Whitney | Ver seção 4.1; Mann-Whitney por causa da assimetria vista na EDA | Fase 0 (teste: fase 2) |
 | Extensão com embeddings | Fora do escopo; citada em "Próximos passos" | Prazo de uma semana e pouco suporte em R | Fase 0 |
 
 ## 6. Desvios em relação ao Projeto 1
@@ -115,6 +116,8 @@ score(D, q) = Σ  idf(t) · f(t, D) · (k1 + 1) / ( f(t, D) + k1 · (1 − b + b
 - f(t, D): quantas vezes o termo *t* aparece em *D*;
 - |D|: tamanho de *D*; avgdl: tamanho médio dos artigos;
 - k1 = 1,2 (saturação); b = 0,75 (normalização pelo tamanho).
+- idf(t) = log10(N / df), **o mesmo do TF-IDF**, para que a diferença entre os modelos venha só da forma de pontuar. Testamos também o idf original de Robertson e Spärck Jones, log((N − df + 0,5) / (df + 0,5) + 1): as médias de P@10, MAP e nDCG@10 mudaram menos de 0,002.
+- Termos repetidos na consulta contam uma vez por ocorrência, nos dois modelos. Termos da consulta que não aparecem em nenhum artigo são ignorados.
 
 Os dois modelos são implementados em R, no próprio notebook.
 
